@@ -1,0 +1,17 @@
+# Dependencias de Node
+node_modules/
+**/node_modules/
+# Variables de entorno (NUNCA versionar)
+.env
+**/.env
+# Builds de TypeScript
+dist/
+**/dist/
+build/
+# Logs
+*.log
+# Sistema operativo e IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
