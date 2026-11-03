@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "siguiente_id": 6,
+    "generadoEn": "2026-09-16T22:41:12.949Z"
+  },
+  "licencias": [
+    {
+      "id": 1,
+      "usuarioSub": "94182498-00e1-704d-62aa-eee3de8594e5",
+      "juegoId": 1,
+      "revocado": false,
+      "creadaEn": "2026-09-16T22:41:12.949Z"
+    },
+    {
+      "id": 2,
+      "usuarioSub": "94182498-00e1-704d-62aa-eee3de8594e5",
+      "juegoId": 2,
+      "revocado": false,
+      "creadaEn": "2026-09-16T22:41:12.949Z"
+    },
+    {
+      "id": 3,
+      "usuarioSub": "94182498-00e1-704d-62aa-eee3de8594e5",
+      "juegoId": 3,
+      "revocado": true,
+      "creadaEn": "2026-09-14T22:41:12.949Z"
+    },
+    {
+      "id": 4,
+      "usuarioSub": "c47874d8-f091-7066-2b8e-da4e22899f73",
+      "juegoId": 4,
+      "revocado": false,
+      "creadaEn": "2026-09-16T22:41:12.949Z"
+    },
+    {
+      "id": 5,
+      "usuarioSub": "441854d8-5081-7043-5b0d-ba2b784765c4",
+      "juegoId": 5,
+      "revocado": false,
+      "creadaEn": "2026-09-16T22:41:12.949Z"
+    }
+  ]
+}
