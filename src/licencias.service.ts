@@ -3,6 +3,7 @@ import path from 'path';
 import { Licencia, LicenciasData } from './interfaces/licencia.interface';
 import { publicar } from './mensajeria/publicador';
 import { ROUTING_KEYS } from './mensajeria/topologia';
+import { publicarEventoKafka } from './kafka/productor';
 
 const LICENCIAS_PATH = path.join(process.cwd(), 'data', 'licencias.json');
 const MS_AUDITORIA_URL = process.env.MS_AUDITORIA_URL ?? 'http://localhost:3001/internal/auditoria';
@@ -37,16 +38,30 @@ export async function revocar(
   guardarLicencias(dataLicencias);
 
   // 2. Emisión asincrónica del evento de dominio en RabbitMQ
+  const revocadaEn = new Date().toISOString();
   publicar(ROUTING_KEYS.licenciaRevocada, {
     licenciaId,
     juegoId: licencia.juegoId,
     usuarioSub: licencia.usuarioSub,
     revocadaPor: adminSub,
     motivo,
-    revocadaEn: new Date().toISOString(),
+    revocadaEn,
   });
 
-  // 3. Propagación HTTP síncrona a ms-auditoria (:3001/internal/auditoria)
+  // 3. Emisión asincrónica en Kafka (EP3 Entrega 1)
+  await publicarEventoKafka({
+    tipo: 'licencia.revocada',
+    juegoId: licencia.juegoId,
+    usuarioSub: licencia.usuarioSub,
+    datos: {
+      licenciaId,
+      revocadaPor: adminSub,
+      motivo,
+      revocadaEn,
+    },
+  });
+
+  // 4. Propagación HTTP síncrona a ms-auditoria (:3001/internal/auditoria)
   try {
     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
     if (authorization) headers['Authorization'] = authorization;
