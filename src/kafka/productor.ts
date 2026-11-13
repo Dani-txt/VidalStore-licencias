@@ -10,7 +10,11 @@ import { validateSync } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { randomUUID } from 'node:crypto';
 
-const brokers = (process.env.KAFKA_BROKERS || 'localhost:9092,localhost:9094,localhost:9096').split(',');
+const kafkaBrokers = process.env.KAFKA_BROKERS;
+if (!kafkaBrokers) {
+  throw new Error('Variable de entorno KAFKA_BROKERS no configurada');
+}
+const brokers = kafkaBrokers.split(',');
 
 export const productor = new Producer({
   clientId: 'vidalstore-licencias',
