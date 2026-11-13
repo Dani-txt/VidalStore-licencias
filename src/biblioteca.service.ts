@@ -124,15 +124,17 @@ export async function procesarCompra(
     adquiridaEn: nuevaLicencia.creadaEn,
   });
 
-  // 4. Publicar en Kafka (EP3 Entrega 1)
+  // 4. Publicar en Kafka (EP3 Entrega 1/2)
   await publicarEventoKafka({
     tipo: 'compra.realizada',
     juegoId,
     usuarioSub,
     datos: {
-      licenciaId: nuevaLicencia.id,
-      precioPagado,
+      licenciaId: String(nuevaLicencia.id),
       adquiridaEn: nuevaLicencia.creadaEn,
+      precioBaseClp: Math.round(precioPagado),
+      descuentoPct: 0,
+      precioPagadoClp: Math.round(precioPagado),
     },
   });
 
