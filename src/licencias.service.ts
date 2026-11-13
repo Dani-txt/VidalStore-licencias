@@ -48,16 +48,15 @@ export async function revocar(
     revocadaEn,
   });
 
-  // 3. Emisión asincrónica en Kafka (EP3 Entrega 1)
+  // 3. Emisión asincrónica en Kafka (EP3 Entrega 1/2)
   await publicarEventoKafka({
     tipo: 'licencia.revocada',
     juegoId: licencia.juegoId,
     usuarioSub: licencia.usuarioSub,
     datos: {
-      licenciaId,
+      licenciaId: String(licenciaId),
       revocadaPor: adminSub,
-      motivo,
-      revocadaEn,
+      motivo: motivo.trim() || 'Revocada por administrador',
     },
   });
 
