@@ -1,7 +1,11 @@
 node_modules
 dist
-.git
-.env
+.angular
+coverage
 *.log
-.vscode
-.idea
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.git
+.github
